@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>产品详细</title>
+	<link rel="stylesheet" href="__ROOT__/Public/Home/css/aui.min.css">
+	<link rel="stylesheet" href="__ROOT__/Public/Home/css/style.css">
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/aui.js"></script>
+	<style type="text/css">
+	     body{padding-bottom: 50px;}
+		.img{width: 100%;display: block;}
+		
+		.my-left {float: left;} 
+	    .my-right {
+		    float: right;
+		}
+		#list-data{margin-top: 10px;margin-bottom: 55px;}
+		.mui-table-view-cell{font-size: 14px;}
+		.my-bar {
+		    background: #fff !important;
+		    border-top: 1px solid #e1e1e1;
+		}
+		.buy-price {
+		    line-height: 50px;
+		    padding-left: 10px;
+		    color: #FF5053;
+		    font-weight: bold;
+		}
+		.go-buy {
+		    background: #FF8C00;
+		    height: 100%;
+		    text-align: center;
+		    line-height: 50px;
+		    color: #fff;
+		}
+		.buy-detail {
+		    width: 100%;
+		    background: #fff;
+		    position: absolute;
+		    bottom: 0px;
+		    /* z-index: 9999; */
+		    padding: 20px;
+		    border-top: 1px solid #e1e1e1;
+		}
+		.go-pay {
+		    width: 80px;
+		    background: #FF8C00;
+		    height: 32px;
+		    padding: 0;
+		    line-height: 32px;
+		    text-align: center;
+		    top: 4px;
+		    right: 8px;
+		    color: #fff;
+		}
+		.mask{position: fixed;background: rgba(0, 0, 0, 0.24);width: 100%;height: 100%;left: 0;top: 0;z-index: 100;display: none;}
+		.content{background: #fff;font-size: 14px;padding: 6px;border-top: 1px solid #eee;}
+	</style>
+</head>
+<body>
+    <!-- 遮罩层 -->
+	<form class="mui-input-group">
+    <div class="mask">
+    	<div id="buy-detail" style="bottom: 0px;" class="buy-detail">
+		    <span class="mui-icon mui-icon-closeempty" onclick="closeBox()" style="position: absolute;right: 0;top: 0;font-size: 30px;"></span>
+		    <div style="margin-bottom: 10px;">
+		        <span>支付方式：</span>
+		            <input id="paytype" value="1" type="radio" class="paytype" name="paytype" checked><span style="font-size:14px;"> 蜂巢</span>
+					<input id="paytype" value="2" type="radio" class="paytype" name="paytype"><span style="font-size:14px;"> 蜜罐</span>
+		    </div>
+		    <div style="height: 40px;">
+		        <span style="line-height: 40px;">需支付：<span style="color:#FF5053">¥</span><strong id="total-price" style="color:#FF5053">{$intro.price}</strong></span>
+		        <button type="button" class="go-pay my-right" id="sure_buy">确定购买</button>
+		    </div>
+		</div>
+    </div>
+	</form>
+    <!-- 遮罩层 -->
+
+
+	 <header class="mui-bar mui-bar-nav">
+		   <a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="history.go(-1)"></a>
+		  <h1 class="mui-title">{$intro.name}</h1>
+	</header>
+	<div class="mui-content">
+		 <img src="{$intro.pic}" alt="" class="img">
+		 <div class="content">
+			 {$intro.cont}
+		 </div>
+		<if condition="$id == 13 ">
+			<img src="__ROOT__/Public/Home/detail/3.jpg" alt="" class="img">
+			<img src="__ROOT__/Public/Home/detail/4.jpg" alt="" class="img">
+		    <else /> 
+		</if>
+		<if condition="$id == 12 ">
+			<img src="__ROOT__/Public/Home/detail/1.jpg" alt="" class="img">
+			<img src="__ROOT__/Public/Home/detail/2.jpg" alt="" class="img">
+		    <else /> 
+		</if>
+		<if condition="$id == 11 ">
+			<img src="__ROOT__/Public/Home/detail/5.jpg" alt="" class="img">
+			<img src="__ROOT__/Public/Home/detail/6.jpg" alt="" class="img">
+			<img src="__ROOT__/Public/Home/detail/7.jpg" alt="" class="img">
+			<img src="__ROOT__/Public/Home/detail/8.jpg" alt="" class="img">
+			<img src="__ROOT__/Public/Home/detail/9.jpg" alt="" class="img">
+		    <else /> 
+		</if>
+	</div>
+
+    <nav class="mui-bar mui-bar-tab my-bar">
+	    <div id="buy-price" data-price="{$intro.price}" class="mui-col-xs-8 my-left buy-price">
+	        单价：¥{$intro.price}</div>
+	    <div id="showPay" class="mui-col-xs-4 my-left go-buy">我要购买</div>
+	</nav>
+	<!--<img src="__ROOT__/Public/Home/img/index_01.gif" alt="" class="detailImg">-->
+	<!--<img src="__ROOT__/Public/Home/img/index_03.gif" alt="" class="detailImg">-->
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+	var closeBox=function(){
+ 	  $(".mask").hide();
+ 	}
+ 	$("#showPay").click(function() {
+ 		  $(".mask").show();
+ 	});
+	
+      $("#sure_buy").click(function(){
+	  
+	   var paytype = $("input[name='paytype']:checked").val();
+	   var url="__ROOT__/index.php/Home/Index/address/id/<?php echo $_GET['id']; ?>/paytype/"+paytype;
+	   
+       window.location.href=url;
+
+      });
+
+    
+
+
+
+
+	</script>
+
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>首页</title>
+	<link rel="stylesheet" href="css/aui.min.css">
+	<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/swiper.min.js"></script>
+	<style type="text/css">
+	  body{padding-bottom: 56px;}
+	  .mui-content{background: #fff;}
+	  .good_title{height:40px;line-height: 40px;font-size: 16px;text-indent: 10px;}
+	  .good_info{font-size: 14px;color: #333;padding: 10px 10px;}
+	  .good_div{border-bottom: 1px solid #ccc; }
+	  .good_info button{width: 72px;height: 25px;background-color: #F54337;border-radius: 2px; border: 0;font-size: 12px;color: #fff;}
+	 .good_info span.fr{color: #F54337;font-size: 15px;font-weight: bold;margin-right: 10px;line-height: 25px;}
+	 .good_name{display: inline-block;width: 160px;line-height: 19px;}
+	</style>
+</head>
+<body>
+	
+	<div class="mui-content">
+		<div class="swiper-container">
+		    <div class="swiper-wrapper">
+		        <div class="swiper-slide"><img src="img/shuzi_01.jpg" alt=""></div>
+		        <div class="swiper-slide"><img src="img/shuzi_01.jpg" alt=""></div>
+		    </div>
+		    <div class="swiper-pagination"></div>
+		</div>
+		<div class="good_title">商品列表</div>
+		<div class="good_div"  onclick="location.href='shop.html'">
+			<img src="img/shuzi_01.jpg" alt="" class="detailImg">
+			<div class="good_info">
+			<span class="good_name">手工桃</span>
+			<button type="button" class="fr">购买</button>
+			<span class="fr">￥100</span></div>
+		</div>	
+
+	</div>
+	<nav class="mui-bar mui-bar-tab">
+		<a class="mui-tab-item  mui-active" data-href="index.html">
+			<span class="mui-icon"><img src="img/7.png" alt=""></span>
+			<span class="mui-tab-label">首页</span>
+		</a>
+		<a class="mui-tab-item" data-href="my.html">
+			<span class="mui-icon"><img src="img/10.png" alt=""></span>
+			<span class="mui-tab-label">个人中心</span>
+		</a>
+	</nav>
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$("nav a").click(function() {
+		   var href=$(this).attr('data-href');
+		   if(href){
+		   	   window.location.href=href;
+		   }
+	    });
+		var mySwiper = new Swiper('.swiper-container',{
+		   pagination : '.swiper-pagination',
+		   paginationClickable :true,
+		   autoplay : 2000,
+		   autoplayDisableOnInteraction : false,
+		   loop : true,
+		
+		})
+
+	})
+	
+
+
+	</script>
+</body>
+</html>

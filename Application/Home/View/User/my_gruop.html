@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>个人中心</title>
+        <link href="__ROOT__/Public/Home/css/bootstrap.min.css" rel="stylesheet">
+        <link href="__ROOT__/Public/Home/css/aui.min.css" rel="stylesheet">
+        <link href="__ROOT__/Public/Home/css/mui.picker.css" rel="stylesheet">
+        <link href="__ROOT__/Public/Home/css/mui.poppicker.css" rel="stylesheet">
+        <link href="__ROOT__/Public/Home/css/style.css" rel="stylesheet">
+         <script type="text/javascript" src="__ROOT__/Public/Home/js/jquery-3.1.1.min.js"></script>
+         <script type="text/javascript" src="__ROOT__/Public/Home/js/aui.js"></script>
+        <script type="text/javascript" src="__ROOT__/Public/Home/js/mui.picker.js"></script>
+        <script type="text/javascript" src="__ROOT__/Public/Home/js/mui.poppicker.js"></script>
+        <script type="text/javascript" src="__ROOT__/Public/Home/js/bootstrap.min.js"></script>
+        <style>
+         
+        </style>
+    </head>
+</head>
+<body class="bodyColor">
+    <header class="mui-bar mui-bar-nav">
+	  <a class="mui-icon mui-icon-left-nav mui-pull-left mui-action-back"></a>
+	  <h1 class="mui-title">我的团队</h1>
+	</header>
+	<div class="mui-content">
+		<div class="mui-content">
+        <foreach name="res" item='v'>
+        <ul class="flex">
+            <li>{$v.reson}</li>
+            <li>{$v.times}级下线<if condition="$v.reson eq '下级购买MIF'"> {$v.orderid} 共{$v.cont}个</if></li>
+            <li> 上级编号{$v.shang}</li>
+        </ul>
+        </foreach>
+        <!--<ul class="flex">-->
+            <!--<li>回馈奖励</li>-->
+            <!--<li>二级下线</li>-->
+            <!--<li>张三</li>-->
+            <!--<li>张三</li>-->
+        <!--</ul>-->
+        
+      
+    </div>
+	</div>
+</body>
+</html>

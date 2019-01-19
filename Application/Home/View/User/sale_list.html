@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>挂卖积分列表</title>
+	<link rel="stylesheet" href="__ROOT__/Public/Home/css/aui.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/style.css">
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/swiper.min.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/aui.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	  <a class="mui-icon mui-icon-left-nav mui-pull-left mui-action-back"></a>
+	  <h1 class="mui-title">挂卖积分列表</h1>
+	</header>
+	<div class="mui-content">
+	   <p class="tipTitle">交易规则</p>
+	    <ul class="deal_rule">
+	    	<li>买方购买积分后请及时联系卖家进行交易</li>
+	    	<li>如卖家收款后不及时确认打款</li>
+	    	<li>请联系客服务人员对卖方进行封号处理</li>
+	    </ul>
+	    <table class="sale_table">
+    		<tr>
+    			<th>会员账号</th>
+    			<th>挂卖积分数量</th>
+    			<th>操作</th>
+    		</tr>
+
+			<foreach name="listing" item='v'>
+				<tr>
+					<td><a href="__ROOT__/index.php/Home/User/sale_buy/id/{$v.id}">{$v.tel}</a></td>
+					<td>{$v.income}</td>
+					<td>
+						<if condition="$v.orderid eq 1">
+							<if condition="$v.state eq 4"> 等待买家打款
+								<elseif condition="$v.state eq 5"/>
+								<a href="__ROOT__/index.php/Home/User/buylog/id/{$v.id}">确认收款</a>
+								<elseif condition="$v.state eq 6"/>已完成
+							</if>
+						</if>
+						<if condition="$v.orderid eq 2">
+							<if condition="$v.state eq 4">
+								<a href="__ROOT__/index.php/Home/User/buylog/id/{$v.id}">确认打款</a>
+								<elseif condition="$v.state eq 5"/>等待卖家确认收款
+								<elseif condition="$v.state eq 6"/>已完成
+							</if>
+						</if>
+					</td>
+				</tr>
+			</foreach>
+
+
+			<foreach name="res" item='v'>
+    		<tr>
+    			<td>{$v.tel}</td>
+    			<td>{$v.income}</td>
+    			<td><a href="javascript:if(confirm('确认购买'))location='__ROOT__/index.php/Home/User/buy/id/{$v.id}'">售卖中</a></td>
+    		</tr>
+			</foreach>
+	    </table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>未来无线短信API</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="keywords" content="未来无线短信API">
+<meta name="description" content="未来无线短信API">
+<link rel="Bookmark" href="http://43.243.130.33:8099/favicon.ico">
+<link rel="shortcut icon" href="http://43.243.130.33:8099/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="http://43.243.130.33:8099/support/res/css/style.css">
+<link rel="stylesheet" href="http://43.243.130.33:8099/support/res/layui/css/layui.css">
+<link rel="stylesheet" href="http://43.243.130.33:8099/support/res/css/global.css">
+<style type="text/css">
+.layout_lm .main {
+	position: relative;
+	margin-top: 10px; width : 730px;
+	float: left;
+	overflow: hidden;
+	width: 730px;
+}
+
+.layout_lm .main .fixmt {
+	margin: 0;
+	color: #000;
+	font-family: "Microsoft Yahei";
+	font-size: 20px;
+	height: 37px;
+	line-height: 30px;
+}
+
+.layout_lm .main .contentSub {
+	border-top: 1px solid #dddde1;
+}
+
+.layout_lm .main .contentSub #bodyContent {
+	position: relative;
+}
+
+.layout_lm a {
+	color: #5f940a;
+}
+
+.layout_lm .main h2 {
+	margin: 0;
+	margin-top: 20px;
+	height: 37px;
+	line-height: 37px;
+	font-size: 18px;
+	color: #000;
+	font-family: "Microsoft Yahei";
+}
+
+div#bodyContent p,div#bodyContent pre {
+	font-family: Tahoma, "SimSun";
+	line-height: 24px;
+	font-size: 12px;
+}
+
+.code {
+	width: 694px;
+	font-size: 14px;
+	color: #595959;
+	border: 1px dashed #cecfcf;
+	background-color: #f5f6f7;
+	padding: 6px 12px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+div#bodyContent p,div#bodyContent pre {
+	font-family: Tahoma, "SimSun";
+	line-height: 24px;
+	font-size: 12px;
+}
+div#bodyContent pre {
+	display: block; 
+}
+
+.layout_lm .main li {
+	list-style: inside;
+}
+</style>
+</head>
+<body>
+	
+
+
+
+	<div class="header">
+		<div class="main">
+			<a class="logo" href="/">未来无线短信API</a>
+		</div>
+	</div>
+	<div class="main layui-clear">
+		<div class="wrap layout_lm">
+			<div class="main">
+				<h2 class="fixmt">PHP_SDK使用指南</h2>
+				<div class="contentSub">
+					<div id="bodyContent">
+						<h2>
+							<span class="mw-headline">1. SDK简介</span>
+						</h2>
+						<p>
+							本SDK以源码包形式提供，封装了常用的API的功能。<br/> 主要提供的功能接口有：发送普通短信、发送变量短信、获取状态报告、获取用户上行、获取账户余额以及批量发送短信等功能。
+						</p>
+						<h2>
+							<span class="mw-headline">2.下载安装SDK</span>
+						</h2>
+						<p>
+							请到<a href="http://43.243.130.33:8099/support/sdk/php-sdk.zip">SDK下载</a>页面下载SDK和示例代码。<br/> 下载源代码包后，解压到您的项目中。 然后在您的项目中引入 autoloader：
+						</p>
+						<div class="code">
+							<pre>require_once 'autoload.php';</pre>
+						</div>
+						<h2>
+							<span class="mw-headline">3. 基本使用方法</span>
+						</h2>
+						<p>
+							在使用SDK之前，您需要有一对有效的cust_code和cust_pwd。如果不记得，可咨询我们的客服人员。
+						</p>
+						<p>
+							<br/>
+							<b>SDK结构</b>
+							<br/>
+							<ul>
+								<li>lib目录主要包含了一些对 http封装的类</li>
+								<li>autoload.php用于引入SDK，供开发者使用</li>
+								<li>config.php是配置文件，使用前需要填入相关信息。
+						<div class="code">
+							<pre>
+//用户账号，必填
+$wlwx_config['CUST_CODE'] = "XXXXXX";
+//用户密码，必填
+$wlwx_config['CUST_PWD'] = "XXXXXXXXXXXX";
+//长号码，选填
+$wlwx_config['SP_CODE'] = "";
+//是否需要状态报告
+$wlwx_config['NEED_REPORT'] = "yes";
+//业务标识，选填，由客户自行填写不超过20位的数字
+$wlwx_config['UID'] = "";
+//短信网关地址，具体地址咨询客服
+$wlwx_config['SMS_HOST'] = 'http://127.0.0.1';</pre>
+						</div>
+								</li>
+							</ul>
+							<br/>
+							<b>场景化示例</b>
+							<br/>
+							<div class="code">
+								<pre>
+&lt;?php
+require_once 'autoload.php';
+
+$smsOperator = new SmsOperator();
+//开发者亦可在构造函数中填入配置项
+//$smsOperator = new SmsOperator($cust_code, $cust_pwd, $sp_code, $need_report, $uid);
+
+// 发送普通短信
+echo "发送普通短信\n";
+$data1['destMobiles'] = '15960XXX654';
+$data1['content'] = '【未来无线】您的验证码为：170314。如非本人操作，请忽略。';
+$result = $smsOperator->send_comSms($data1);
+print_r($result);
+
+//发送变量短信
+echo "发送变量短信\n";
+$params = array();
+//VariantSms类用于封装发送号码以及参数变量
+array_push($params,new VariantSms("15960XXX654",array("长乐","25")));
+array_push($params,new VariantSms("18650XXX293",array("上杭","23")));
+$data2['content'] = "${mobile}用户您好，今天${var1}的天气，晴，温度${var2}度，事宜外出。";
+$data2['params'] = $params;
+$result = $smsOperator->send_varSms($data2);
+print_r($result);
+
+//获取状态报告
+echo "获取状态报告\n";
+$result = $smsOperator->get_report();
+print_r($result);
+
+//获取用户上行
+echo "获取用户上行\n";
+$result = $smsOperator->get_mo();
+print_r($result);
+
+//获取账户余额
+echo "获取账户余额\n";
+$result = $smsOperator->get_account();
+print_r($result);
+
+//创建短信模板
+echo "创建短信模板\n";
+$template = "([\S\s]*)用户您好，请记住您的验证码([\S\s]*)。";
+$result = $smsOperator->send_template($template);
+print_r($result);
+
+//批量发送短信
+$multiSmsOperator = new MultiSmsOperator();
+//开发者亦可在构造函数中填入配置项，注本处的uid为用户账号
+//$multiSmsOperator = new MultiSmsOperator($uid, $cust_pwd, $srcphone);
+echo "批量发送短信\n";
+$msg = array();
+//MultiSms类用于封装发送号码以及内容
+array_push($msg,new MultiSms("15960XXX654","【未来无线】您的验证码为：170314。如非本人操作，请忽略。"));
+array_push($msg,new MultiSms("18650XXX293","【未来无线】您的验证码为：170315。如非本人操作，请忽略。"));
+$data3['msg'] = $msg;
+$result = $multiSmsOperator->send_multiSms($data3);
+print_r($result);
+								</pre>
+							</div>
+							<br/>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+
+	
+	<div class="fixed">
+		<div style="bottom: 10px; height: 54px;" id="right_goTopBtn">
+			<a id="return_top" title="返回头部" href="javascript:;"></a>
+		</div>
+	</div>
+
+	<div class="footer">
+		<p>
+			Copyright &copy; 2013-2017 <a href="http://www.10690757.com/" target="_blank">未来无线</a>
+		</p>
+	</div>
+	<script type="text/javascript" src="http://43.243.130.33:8099/lib/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://43.243.130.33:8099/lib/layer/2.1/layer.js"></script> 
+	<script>
+	$(function() {
+
+		$("#right_goTopBtn").click(function() {
+			$("html,body").animate({
+				scrollTop : 0
+			}, 500);
+		});
+		
+		$(".f_toLogin").click(function(){
+			window.location.href='http://43.243.130.33:8099/login.jsp?url='+window.location.href;
+		});
+	});
+	</script>
+
+</body>
+</html>

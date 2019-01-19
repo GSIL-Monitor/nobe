@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>开通商品</title>
+	<link rel="stylesheet" href="__ROOT__/Public/Home/css/aui.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/style.css">
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/swiper.min.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/aui.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	  <a class="mui-icon mui-icon-left-nav mui-pull-left mui-action-back"></a>
+	  <h1 class="mui-title">开通商品</h1>
+	</header>
+	<div class="mui-content">
+	    <ul class="deal_rule" style="margin-top:10px;">
+	    	<li>注册扣除200元积分</li>
+	    	<li>请确认账号内有足够的积分</li>
+	    </ul>
+		<form class="mui-input-group" style="margin-top:10px;" action="__ROOT__/index.php/Home/User/reg" method="post"  enctype="multipart/form-data">
+			<div class="mui-input-row">
+				<label>会员账号</label>
+				<input type="text" class="mui-input-clear" name="tel" placeholder="请输入会员电话">
+			</div>
+			<div class="mui-input-row">
+				<label>姓名</label>
+				<input type="text" class="mui-input-clear" name="name" placeholder="请输入会员姓名">
+			</div>
+			<div class="mui-input-row">
+				<label>一级密码</label>
+				<input type="password" class="mui-input-password" name="pwd" placeholder="请输入一级密码">
+			</div>
+			<div class="mui-input-row">
+				<label>确认一级密码</label>
+				<input type="password" class="mui-input-password" name="pwd11" placeholder="请确认一级密码">
+			</div>
+			<div class="mui-input-row">
+				<label>二级密码</label>
+				<input type="password" class="mui-input-password" name="pwd2" placeholder="请输入二级密码">
+			</div>
+			<div class="mui-input-row">
+				<label>确认二级密码</label>
+				<input type="password" class="mui-input-password" name="pwd22" placeholder="请确认二级密码">
+			</div>
+			<input type="hidden" name="num" value="200">
+			<button type="submit" class="mui-btn mui-btn-block">确认注册</button>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>产品详细</title>
+	<link rel="stylesheet" href="css/aui.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="js/aui.js"></script>
+	<style type="text/css">
+	     body{padding-bottom: 50px;}
+		.img{width: 100%;display: block;}
+		
+		.my-left {float: left;} 
+	    .my-right {
+		    float: right;
+		}
+		#list-data{margin-top: 10px;margin-bottom: 55px;}
+		.mui-table-view-cell{font-size: 14px;}
+		.my-bar {
+		    background: #fff !important;
+		    border-top: 1px solid #e1e1e1;
+		}
+		.buy-price {
+		    line-height: 50px;
+		    padding-left: 10px;
+		    color: #FF5053;
+		    font-weight: bold;
+		}
+		.go-buy {
+		    background: #FF8C00;
+		    height: 100%;
+		    text-align: center;
+		    line-height: 50px;
+		    color: #fff;
+		}
+		.buy-detail {
+		    width: 100%;
+		    background: #fff;
+		    position: absolute;
+		    bottom: 0px;
+		    /* z-index: 9999; */
+		    padding: 20px;
+		    border-top: 1px solid #e1e1e1;
+		}
+		.go-pay {
+		    width: 80px;
+		    background: #FF8C00;
+		    height: 32px;
+		    padding: 0;
+		    line-height: 32px;
+		    text-align: center;
+		    top: 4px;
+		    right: 8px;
+		    color: #fff;
+		}
+		.mask{position: fixed;background: rgba(0, 0, 0, 0.24);width: 100%;height: 100%;left: 0;top: 0;z-index: 100;display: none;}
+		.content{background: #fff;font-size: 14px;padding: 6px;border-top: 1px solid #eee;}
+	</style>
+</head>
+<body>
+    <!-- 遮罩层 -->
+    <div class="mask">
+    	<div id="buy-detail" style="bottom: 0px;" class="buy-detail">
+		    <span class="mui-icon mui-icon-closeempty" onclick="closeBox()" style="position: absolute;right: 0;top: 0;font-size: 30px;"></span>
+		    <div style="margin-bottom: 10px;">
+		        <span>购买数量：</span>
+		        <div class="mui-numbox">
+		            <!-- "-"按钮，点击可减小当前数值 -->
+		            <button class="mui-btn mui-numbox-btn-minus" data-type="desc" type="button" id="reduce">-</button>
+		            <input class="mui-numbox-input" id="number" value="1" type="number" name="">
+		            <input class="mui-numbox-input" id="product_id" value="4" type="hidden" name="">
+		            <!-- "+"按钮，点击可增大当前数值 -->
+		            <button class="mui-btn mui-numbox-btn-plus" data-type="asc" type="button" id="plus">+</button>
+		        </div>
+		    </div>
+		    <div style="height: 40px;">
+		        <span style="line-height: 40px;">需支付：<span style="color:#FF5053">¥</span><strong id="total-price" style="color:#FF5053">6000.00</strong></span>
+		        <button class="go-pay my-right" id="sure_buy">确定购买</button>
+		    </div>
+		</div>
+    </div>
+    <!-- 遮罩层 -->
+
+
+	 <header class="mui-bar mui-bar-nav">
+		   <a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="history.go(-1)"></a>
+		  <h1 class="mui-title">手工桃木梳</h1>
+	</header>
+	<div class="mui-content">
+		 <img src="img/shuzi_01.jpg" alt="" class="img">
+		 <div class="content">
+		 	 桃木梳：民间传说是避邪扶正之物，历来被人们视为驱邪压正的吉祥物。木质坚硬，柔韧耐用。 黄杨木梳：自古是制梳首选。据《本草纲目》载：“世重黄杨，以其无火”、“其木紧腻，作梳、剜、印最良”、“清热、利湿、解毒”。枣木梳：枣木梳木质坚硬细密，纹理美观，色泽柔和自然，使用时可按摩脑部，促进脑部血液循环，乌发，止氧，醒神健脑。天然竹梳： 传统工艺、手工精制。
+		 </div>
+	</div>
+    <nav class="mui-bar mui-bar-tab my-bar">
+	    <div id="buy-price" data-price="6000" class="mui-col-xs-8 my-left buy-price">
+	        单价：¥6000            </div>
+	    <div id="showPay" class="mui-col-xs-4 my-left go-buy">我要购买</div>
+	</nav>
+	<img src="img/index_01.gif" alt="" class="detailImg">
+	<img src="img/index_03.gif" alt="" class="detailImg">
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+	var closeBox=function(){
+ 	  $(".mask").hide();
+ 	}
+ 	$("#showPay").click(function() {
+ 		  $(".mask").show();
+ 	});
+		
+    $("#plus").click(function () {
+        var num = $("#number").val();
+        num++;
+         $("#number").val(num)
+        var price = parseFloat($("#buy-price").attr('data-price').trim());
+        var total = num * price;
+        $("#total-price").html(total.toFixed(2))
+    })
+      $("#reduce").click(function () {
+        var num = $("#number").val();
+        num--;
+        $("#number").val(num)
+        if (num < 1) {
+            $("#number").val(1);
+            num = 1;
+           
+        }
+        var price = parseFloat($("#buy-price").attr('data-price').trim());
+        var total = num * price;
+        $("#total-price").html(total.toFixed(2))
+    })
+
+      $("#sure_buy").click(function(){
+      	window.location.href="address.html";
+
+      });
+
+    
+
+
+
+
+	</script>
+
+
+</body>
+</html>

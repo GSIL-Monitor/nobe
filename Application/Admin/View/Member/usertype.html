@@ -1,0 +1,71 @@
+ <include file="Common/header" />
+<div id="page-wrapper">
+  <div class="graphs">
+    <div class="content_bottom">
+      <div class="col-md-12 span_3">
+        <div class="bs-example1" data-example-id="contextual-table">
+          <h3>职位列表</h3>
+          <form class="form-horizontal" action="" method="get" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="focusedinput" class="col-sm-2 control-label">职位名称</label>
+              <div class="col-sm-8">
+                <input type="text" name="typename" value="" class="form-control1" id="focusedinput" placeholder="">
+                <p style="margin-left: 200px;margin-top: 20px;"></p>
+                <button class="btn-success btn">提交</button>
+              </div>
+              <div class="col-sm-2">
+                <p class="help-block"></p>
+              </div>
+            </div>
+          </form>
+          <table class="table">
+            <thead>
+              <tr style="text-align: center;"> </tr>
+              <tr>
+                <th>id</th>
+                <th>职位名称</th>
+                <th>购买升级</th>
+                <th>消费升级</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+		      		$i = 1;
+		      	?>
+                <foreach name="usertype" item='v'>
+              
+              <?php 
+		      		if(($i%2)==1){
+						echo "<tr class='active'>";
+					}else{
+						echo "<tr class='info'>";
+					}
+		      	?>
+            <th scope="row">{$v.id}</th>
+              <th>{$v.typename}</th>
+              <th>{$v.up_buy}</th>
+              <th>{$v.up_consume}</th>
+              <th><a href="__ROOT__/index.php/Admin/Member/editusertype/id/{$v.id}">修 改 </a></th>
+            </tr>
+            <?php $i++ ;?>
+              </foreach>
+            
+              </tbody>
+            
+          </table>
+        </div>
+      </div>
+      <div class="clearfix"> </div>
+    </div>
+    <div class="copy">
+      <p>Copyright &copy; 2016  All rights reserved.</p>
+    </div>
+  </div>
+</div>
+<!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper --> 
+<!-- Bootstrap Core JavaScript --> 
+<script src="__ROOT__/Public/admin/js/bootstrap.min.js"></script>
+</body></html>

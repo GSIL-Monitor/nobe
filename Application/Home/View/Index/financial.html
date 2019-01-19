@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>我的收益</title>
+	<link rel="stylesheet" href="__ROOT__/Public/Home/css/aui.min.css">
+	<link rel="stylesheet" href="__ROOT__/Public/Home/css/financial.css">
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">	
+		<h1 class="mui-title">我的理财</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="tab">
+			 <li class="selected"><span>待支付</span></li>
+			 <li><span>收益中</span></li>
+			 <li><span>已完成</span></li>
+		</ul>
+		<div class="tabContent">
+			<div>
+				<ul class="list">
+					<foreach name="res.wait" item='v'>
+							<li>
+								<img src="{$v.pic}" class="img">
+								<ul>
+									<li>{$v.orderid}</li>
+									<li>{$v.producename}</li>
+								</ul>
+								<span>¥{$v.total}</span>
+								<a href="__ROOT__/index.php/Home/Product/orderDetail/orderid/{$v.orderid}">去支付</a>
+							</li>
+					</foreach>
+				</ul>
+			</div>	
+			<div class="hidden">
+				<ul class="list">
+					<foreach name="res.coming" item='v'>
+						<li>
+							<img src="{$v.pic}" class="img">
+							<ul>
+								<li>{$v.orderid}</li>
+								<li>{$v.producename}</li>
+							</ul>
+							<span>¥{$v.productmoney}*{$v.num}</span>
+							<!-- <a href="#">去支付</a> -->
+						</li>
+					</foreach>
+				</ul>
+			</div>	
+			<div class="hidden">
+				<ul class="list">
+					<foreach name="res.comoever" item='v'>
+						<li>
+							<img src="{$v.pic}" class="img">
+							<ul>
+								<li>{$v.orderid}</li>
+								<li>{$v.producename}</li>
+							</ul>
+							<span>¥{$v.productmoney}</span>
+							<a href="#">已完成</a>
+						</li>
+					</foreach>
+				</ul>
+			</div>	
+		</div>
+	</div>
+	<include file="Common/footer" />
+	<script src="__ROOT__/Public/Home/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+	$("nav a").click(function() {
+		   var href=$(this).attr('data-href');
+		   if(href){
+		   	   window.location.href=href;
+		   }
+	});
+		$(".tab li").click(function() {
+			$(this).addClass('selected').siblings().removeClass('selected');
+			$(".tabContent div").addClass("hidden").eq($(this).index()).removeClass("hidden");
+		});
+	  
+	</script>
+</body>
+</html>

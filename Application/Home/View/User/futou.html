@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>我要充值</title>
+	<link rel="stylesheet" href="__ROOT__/Public/Home/css/aui.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/style.css">
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/swiper.min.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/aui.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	  <a class="mui-icon mui-icon-left-nav mui-pull-left mui-action-back"></a>
+	  <h1 class="mui-title">我要充值</h1>
+	</header>
+	<div class="mui-content">
+	    <form class="mui-input-group" method="post" action=""  enctype="multipart/form-data" onsubmit="return check('price')">
+		    <div class="mui-input-row">
+		        <label>充值金额</label>
+		        <input type="text" name="price" id="price" class="mui-input-clear"  onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')"  placeholder="请输入充值金额">
+				<input name="user" id="user" type="hidden" value="{$user}" >
+				<input name="type" id="type" type="hidden" value="1" >
+		    </div>
+		    <button type="submit" class="mui-btn mui-btn-block">确认充值</button>
+		</form>
+	</div>
+	<script>
+	function check(e) { 
+	var vl= $("#"+e).val();
+    var re = /^\d+(?=\.{0,1}\d+$|$)/ 
+    if (vl != "") { 
+        if (!re.test(vl)) { 
+            alert("请输入正确的数字"); 
+            $("#"+e).val("");
+            $("#"+e).focus();
+
+			return false;
+        } 
+    } 
+} 
+	</script>
+</body>
+</html>

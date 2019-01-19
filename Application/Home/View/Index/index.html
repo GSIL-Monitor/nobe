@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>商品列表</title>
+	<link rel="stylesheet" href="__ROOT__/Public/Home/css/aui.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/style.css">
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/swiper.min.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/aui.js"></script>
+	<style type="text/css">
+		body{padding-bottom: 56px;}
+		.mui-content{background: #fff;}
+		.good_title{height:40px;line-height: 40px;font-size: 16px;text-indent: 10px;}
+		.good_info{font-size: 14px;color: #333;padding: 10px 10px;}
+		.good_div{border-bottom: 1px solid #ccc; }
+		.good_info button{width: 72px;height: 25px;background-color: #F54337;border-radius: 2px; border: 0;font-size: 12px;color: #fff;}
+		.good_info span.fr{color: #F54337;font-size: 15px;font-weight: bold;margin-right: 10px;line-height: 25px;}
+		.good_name{display: inline-block;width: 160px;line-height: 19px;}
+	</style>
+</head>
+<body>
+	<!-- <header class="mui-bar mui-bar-nav">
+	  <a class="mui-icon mui-icon-left-nav mui-pull-left mui-action-back"></a>
+	  <h1 class="mui-title">商品列表</h1>
+	</header> -->
+	<div class="mui-content">
+		<foreach name="intro" item='v'>
+			<div class="good_div"  onclick="location.href='__ROOT__/index.php/Home/Index/detail/id/{$v.id}'">
+				<img src="{$v.pic}" alt="" class="detailImg">
+				<div class="good_info">
+					<span class="good_name">{$v.name}</span>
+					<button type="button" class="fr">购买</button>
+					<span class="fr">￥{$v.price}</span></div>
+			</div>
+		</foreach>
+		<!-- <ul class="list">
+			<foreach name="intro" item='v'>
+			<li>
+			    <a href="javascript:void(0);">
+					<img src="{$v.pic}" class="img">
+					<ul>
+						<li>{$v.name} <if condition="$v.uppro eq '1'"> <font color="red">[升级商品]</font></if></li>
+					</ul>
+					<span>¥{$v.price}</span>
+					<a href="__ROOT__/index.php/Home/Index/detail/id/{$v.id}" class="buy_a">购买</a>
+				</a>
+			</li>
+			</foreach>
+		</ul> -->
+	</div>
+	<nav class="mui-bar mui-bar-tab">
+		<a class="mui-tab-item" data-href="__ROOT__/index.php/Home/Index/shop.html">
+			<span class="mui-icon"><img src="__ROOT__/Public/Home/img/7.png" alt=""></span>
+			<span class="mui-tab-label">首页</span>
+		</a>
+		<a class="mui-tab-item" data-href="__ROOT__/index.php/Home/Index/company.html">
+			<span class="mui-icon"><img src="__ROOT__/Public/Home/img/8.png" alt=""></span>
+			<span class="mui-tab-label">关于竹天使</span>
+		</a>
+		<a class="mui-tab-item mui-active" data-href="__ROOT__/index.php/Home/User/my.html">
+			<span class="mui-icon"><img src="__ROOT__/Public/Home/img/10.png" alt=""></span>
+			<span class="mui-tab-label">个人中心</span>
+		</a>
+	</nav>
+<script src="__ROOT__/Public/Home/js/jquery-3.1.1.min.js"></script>
+   <script type="text/javascript">
+    $(function(){
+        $("nav a").click(function() {
+            var href=$(this).attr('data-href');
+            if(href){
+                window.location.href=href;
+            }
+        });
+       
+
+    })
+
+
+
+</script>
+</body>
+</html>

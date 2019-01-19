@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>MIF公排</title>
+        <link href="__ROOT__/Public/Home/css/bootstrap.min.css" rel="stylesheet">
+        <link href="__ROOT__/Public/Home/css/aui.min.css" rel="stylesheet">
+        <link href="__ROOT__/Public/Home/css/mui.picker.css" rel="stylesheet">
+        <link href="__ROOT__/Public/Home/css/mui.poppicker.css" rel="stylesheet">
+        <link href="__ROOT__/Public/Home/css/style.css" rel="stylesheet">
+         <script type="text/javascript" src="__ROOT__/Public/Home/js/jquery-3.1.1.min.js"></script>
+         <script type="text/javascript" src="__ROOT__/Public/Home/js/aui.js"></script>
+        <script type="text/javascript" src="__ROOT__/Public/Home/js/mui.picker.js"></script>
+        <script type="text/javascript" src="__ROOT__/Public/Home/js/mui.poppicker.js"></script>
+        <script type="text/javascript" src="__ROOT__/Public/Home/js/bootstrap.min.js"></script>
+        <style>
+       .gridNUm{text-align: center;height: 20px;line-height: 20px;font-size: 13px;}
+         #myGRid{margin-top: 10px;}
+        </style>
+    </head>
+<body>
+	 <!-- 公共头部 -->
+     <include file="Common/header" />
+    <!-- 公共头部 -->
+    <div class="container-fluid noPadding">
+           <!-- <div class="mui-content"> -->
+          <!--   <ul class="mui-table-view">
+              <li class="mui-table-view-cell">
+                  <a class="mui-navigate-right" href="gongpai_buy.html">
+                    购买公排
+                  </a>
+              </li>
+              <li class="mui-table-view-cell">
+                公排收益
+                <span class="fr">{$username.jifeng}</span>
+              </li>
+              <li class="mui-table-view-cell">
+                公排编号
+                <span class="fr">{$res.bianhao}</span>
+              </li>
+              <li class="mui-table-view-cell">
+                所处系统公排
+                <span class="fr">{$res.ceng}层</span>
+              </li>
+            </ul> -->
+            <ul class="nav grid" id="myGRid">
+                   <li>
+                        <a href="gongpai_buy.html">
+                            <div class="iconImgDiv"><img src="__ROOT__/Public/Home/images/mif/p_31.png" alt="" class="iconImg" style="width: 46%;"></div>
+                        <div class="gridText">购买公排</div>
+                        <div class="gridNUm"></div>
+                      </a>
+                   </li>
+                    <li>
+                        <a href="#">
+                            <div class="iconImgDiv"><img src="__ROOT__/Public/Home/images/mif/p_33.jpg" alt="" class="iconImg" style="width: 46%;"></div>
+                        <div class="gridText" style="font-size: 12px;">公排收益</div>
+                         <div class="gridNUm">{$username.jifeng}</div>
+                      </a>
+                   </li>
+                   <li>
+                        <a href="#">
+                            <div class="iconImgDiv"><img src="__ROOT__/Public/Home/images/p_32.png" alt="" class="iconImg"></div>
+                        <div class="gridText">公排编号</div>
+                        <div class="gridNUm">{$res.bianhao}</div>
+                      </a>
+                   </li>
+                   <li>
+                        <a href="#">
+                            <div class="iconImgDiv"><img src="__ROOT__/Public/Home/images/mif/p_30.jpg" alt="" class="iconImg"></div>
+                        <div class="gridText" style="font-size: 12px;">所处系统公排</div>
+                        <div class="gridNUm">{$res.ceng}层</div>
+                      </a>
+                   </li>
+          </ul>
+    </div>
+</body>
+</html>

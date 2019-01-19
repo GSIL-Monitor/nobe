@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>业绩明细</title>
+	<link rel="stylesheet" href="__ROOT__/Public/Home/css/aui.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/style.css">
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/swiper.min.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/aui.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	  <a class="mui-icon mui-icon-left-nav mui-pull-left mui-action-back"></a>
+	  <h1 class="mui-title">业绩明细</h1>
+	</header>
+	<div class="mui-content">
+	    <table class="my_group_table">
+	    	<tr>
+	    		<th>明细</th>
+				<th>金额</th>
+	    		<th>时间</th>
+	    	</tr>
+
+			<foreach name="res" item='v'>
+	    	<tr>
+	    		<td>{$v.reson}</td>
+				<th>
+					<if condition="$v.state eq 1">+
+						<elseif condition="$v.state eq 2"/>-</if>
+					<if condition="$v.state eq 6">
+						<if condition="$v.orderid eq 1">-</if>
+						<if condition="$v.orderid eq 2">+</if>
+					</if>
+					{$v.income}</th>
+	    		<td><?php echo date('Y-m-d H:i:s',$v['addtime']);?></td>
+	    	</tr>
+			</foreach>
+
+	    </table>
+	</div>
+</body>
+</html>

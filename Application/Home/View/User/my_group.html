@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>天使家族</title>
+	<link rel="stylesheet" href="__ROOT__/Public/Home/css/aui.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/style.css">
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/swiper.min.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/aui.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/jquery-3.1.1.min.js"></script>
+	
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	  <a class="mui-icon mui-icon-left-nav mui-pull-left mui-action-back"></a>
+	  <h1 class="mui-title">天使家族</h1>
+	</header>
+	<div class="mui-content">
+	    <table class="my_group_table">
+	    	<tr>
+	    		<th>家族账号</th>
+	    		<th>家族等级</th>
+	    		<th>注册时间</th>
+	    	</tr>
+
+				<!--<ul class="flex">-->
+					<!--<li>{$v.reson}</li>-->
+					<!--<li>{$v.times}级下线<if condition="$v.reson eq '下级购买MIF'"> {$v.orderid} 共{$v.cont}个</if></li>-->
+					<!--<li> 上级编号{$v.shang}</li>-->
+				<!--</ul>-->
+
+			<foreach name="res" key="k" item='v'>
+				<foreach name="v" item='v2'>
+				<tr>
+					<td>{$v2.name}</td>
+					<td>第<?php if($k==1){echo "一";}elseif($k==2){echo "二";}elseif($k==3){echo "三";}elseif($k==4){echo "四";}elseif($k==5){echo "五";}elseif($k==6){echo "六";}elseif($k==7){echo "七";}elseif($k==8){echo "八";}elseif($k==9){echo "九";}elseif($k==10){echo "十";} ?>天使团</td>
+					<td>{$v2.addymd}</td>
+				</tr>
+				</foreach>
+			</foreach>
+	    </table>
+	</div>
+</body>
+</html>

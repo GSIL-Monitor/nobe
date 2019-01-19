@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>卖家信息</title>
+	<link rel="stylesheet" href="__ROOT__/Public/Home/css/aui.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Home/css/style.css">
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/swiper.min.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/aui.js"></script>
+	<script type="text/javascript" src="__ROOT__/Public/Home/js/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	  <a class="mui-icon mui-icon-left-nav mui-pull-left mui-action-back"></a>
+	  <h1 class="mui-title">卖家信息</h1>
+	</header>
+	<div class="mui-content">
+	    <ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				卖家微信号
+				<span class="fr">{$res.weixin}</span>
+			</li>
+			<li class="mui-table-view-cell">
+				卖家电话
+				<span class="fr">{$res.tel}</span>
+			</li>
+			<li class="mui-table-view-cell">
+				卖家姓名
+				<span class="fr">{$res.name}</span>
+			</li>
+			<!-- 没有交易 -->
+			<li class="mui-table-view-cell">
+				提示：请自行联系卖家完成交易
+			</li>
+			<!--<li class="mui-table-view-cell">-->
+			     <!--<a class="mui-navigate-right" href="deal_status.html">-->
+	               <!--进入交易-->
+	               <!--</a>-->
+				<!---->
+			<!--</li>-->
+			<!--<li class="mui-table-view-cell">-->
+	             <!--<a class="mui-navigate-right" href="deal_status.html">-->
+	               <!--查看交易状态-->
+	               <!--</a>-->
+	         <!--</li>-->
+		</ul>
+	</div>
+	    
+</body>
+</html>

@@ -1,0 +1,89 @@
+*{margin: 0;padding: 0;font-family: "微软雅黑";}
+li{list-style: none;}
+.fr{float: right;}
+.mui-bar-nav{box-shadow: none;-webkit-box-shadow: none; background: #04cbd9;}
+    .mui-title,.mui-icon-left-nav {color: #fff;}
+.mui-icon-arrowleft,.mui-title,.mui-bar .mui-btn-nav.mui-pull-left{color:#fff;}
+@font-face {font-family: "iconfont";
+  src: url('../icon/iconfont.eot?t=1486260639720'); /* IE9*/
+  src: url('../icon/iconfont.eot?t=1486260639720#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../icon/iconfont.woff?t=1486260639720') format('woff'), /* chrome, firefox */
+  url('../icon/iconfont.ttf?t=1486260639720') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../icon/iconfont.svg?t=1486260639720#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shezhi:before { content: "\e60c"; }
+
+.icon-shujuhuizong:before { content: "\e602"; }
+
+.icon-iconfontweibiaoti1:before { content: "\e614"; }
+
+.icon-icontuoyun:before { content: "\e601"; }
+
+.icon-saomiao:before { content: "\e65d"; }
+
+.icon-qianshoujilu:before { content: "\e60b"; }
+
+.icon-gongzuo:before { content: "\e612"; }
+
+.icon-danweidizhi:before { content: "\e605"; }
+
+.icon-danwei:before { content: "\e6a6"; }
+
+.icon-dingdanchaxun:before { content: "\e693"; }
+
+.icon-kaidan_h1:before { content: "\e608"; }
+.mui-input-row label{font-size: 15px;font-family: "微软雅黑";}
+.mui-input-group input:last-child,.mui-input-row label~input{font-size: 15px;font-family: "微软雅黑";}
+.mui-btn-block{width: 80%;margin:20px auto;padding:8px 0;background: #04cbd9;color: #fff;font-family: "微软雅黑";}
+
+.mui-icon img{display: block;width: 100%;}
+.mui-bar-tab .mui-tab-item .mui-icon{width: 27px;}
+.mui-bar.mui-bar-tab{background: #04b6d4;height: 47px;}
+.mui-bar-tab .mui-tab-item .mui-icon~.mui-tab-label{color: #fff;}
+.mui-bar{-webkit-box-shadow: 0 0 1px rgba(0,0,0,0); box-shadow: 0 0 1px rgba(0,0,0,0);}
+.mui-bar-tab .mui-tab-item.mui-active{background: #10c2e0;}
+.swiper-container{width: 100%;}
+.swiper-container img{width: 100%;}
+
+.list{background: #fff;}
+.list>li{position: relative;height: 90px;padding-top: 10px;border-bottom: 1px solid #eee;padding-left: 10px;}
+.list .img{width: 70px;height: 70px;}
+.list>li ul{display: inline-block;position: absolute;top: 5px;left: 84px;}
+.list>li ul li{font-size: 15px;color: #000;padding-top: 8px;}
+.list>li span{color: #ff1111;font-size: 14px;position: absolute;bottom: 10px;left: 84px;}
+.list>li .buy_a{width: 63px;height: 27px;line-height: 27px;border-radius: 3px;color: #fff;background: #10c2e0;position: absolute;right: 10px;bottom: 10px;text-align: center;font-size: 14px;}
+.list>li>a{display: block;}
+
+.detailImg{width: 100%;display: block;}
+.tipTitle{font-size: 15px;font-weight: bold;margin-top: 10px;color: #333;text-align: center;}
+.mui-input-group,.mui-input-group:after{background: transparent;}
+.mui-input-group .mui-input-row{background: #fff;}
+
+
+.my_group_table{background: #fff;}
+.my_group_table{width: 100%;border-collapse:collapse;}
+  .my_group_table tr{border-bottom: 1px solid #eee;font-size: 15px;color: #333;}
+.my_group_table td,.my_group_table th{text-align: center;width: 33.3%;font-size: 14px;color: #333;padding: 10px 0;}
+ .my_group_table td:last-child{font-size: 13px;}
+ .deal_rule{font-size: 13px;}
+  .deal_rule li{text-align: center;color:#615c5c;}
+ .mui-input-row label{text-align: right;}
+
+
+ .successIMG{display: block;margin:50px auto 20px;width: 28%;}
+ .deal_tip{font-size: 20px;text-align: center;}
+
+ .salelist{}
+ .sale_table{background: #fff;width: 100%;border-collapse:collapse;margin-top: 20px;}
+   .sale_table tr{border-bottom: 1px solid #eee;font-size: 15px;color: #333;}
+.sale_table td,.sale_table th{text-align: center;width: 33.3%;font-size: 14px;color: #333;padding: 10px 0;}
