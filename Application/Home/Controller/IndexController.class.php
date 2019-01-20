@@ -87,200 +87,30 @@ class IndexController extends CommonController
             if ($pro['price'] > 0) {
                 $income->add($data);
             }
-
             $menber   = M("menber");
-            $userinfo = $menber->where(array('uid' => session('uid')))->find();
+	        $userinfo = $menber->where(array('uid' => session('uid')))->find();
+	        // 查看该产品是否是升级产品，该用户是否升级(密友升级为密天使)
+	        // if ($users['usertype'] == 1 && $intro['uppro'] == 1) {
+	        //     if ($_GET['paytype'] == "1") {
+	        //         $jingbag = bcsub($userinfo['jingbag'], $pro['price'], 2);
+	        //         $menber->where(array('uid' => session('uid')))->save(array('jingbag' => $jingbag, 'usertype' => 2));
+	        //     } else {
+	        //         $chargebag = bcsub($userinfo['chargebag'], $pro['price'], 2);
+	        //         $menber->where(array('uid' => session('uid')))->save(array('chargebag' => $chargebag, 'usertype' => 2));
+	        //     }
 
-            if ($users['usertype'] == 1 && $intro['uppro'] == 1) {
-                // 查看该产品是否是升级产品，该用户是否升级(密友升级为密天使)
-                if ($_GET['paytype'] == "1") {
-                    $jingbag = bcsub($userinfo['jingbag'], $pro['price'], 2);
-                    $menber->where(array('uid' => session('uid')))->save(array('jingbag' => $jingbag, 'usertype' => 2));
-                } else {
-                    $chargebag = bcsub($userinfo['chargebag'], $pro['price'], 2);
-                    $menber->where(array('uid' => session('uid')))->save(array('chargebag' => $chargebag, 'usertype' => 2));
-                }
+	        // } else {
+	            if ($_GET['paytype'] == "1") {
+	                $jingbag = bcsub($userinfo['jingbag'], $pro['price'], 2);
+	                $menber->where(array('uid' => session('uid')))->save(array('jingbag' => $jingbag));
+	            } else {
+	                $chargebag = bcsub($userinfo['chargebag'], $pro['price'], 2);
+	                $menber->where(array('uid' => session('uid')))->save(array('chargebag' => $chargebag));
+	            }
 
-            } else {
-                if ($_GET['paytype'] == "1") {
-                    $jingbag = bcsub($userinfo['jingbag'], $pro['price'], 2);
-                    $menber->where(array('uid' => session('uid')))->save(array('jingbag' => $jingbag));
-                } else {
-                    $chargebag = bcsub($userinfo['chargebag'], $pro['price'], 2);
-                    $menber->where(array('uid' => session('uid')))->save(array('chargebag' => $chargebag));
-                }
-
-            }
-            // 发放奖励(10级)
-            // 获得当前用户的 推荐人
-            // 移除自身
-            $struids = str_replace("," . session('uid'), '', $users['fuids']);
-            if (strlen($struids) > 0) {
-                // 清除空数据并转换为数组
-                $arrfuids = array_filter(explode(",", $struids));
-
-                $arrfuids = array_reverse($arrfuids);
-
-                //重消
-                $resultcx = M('config')->where("id = '20'")->order('id asc')->find();
-
-                $result10 = M('config')->where("id >= 3 and id <= 12")->order('id asc')->select();
-
-                foreach ($arrfuids as $key => $val) {
-                    // echo $key;
-                    // echo "||";
-                    // echo $val;
-                    // echo "##";
-                    // echo ($result10[$key]['value']);
-                    M("menber")->where(array('uid' => $val))->setInc("chargebag", $result10[$key]['value'] * (1 - $resultcx['value']));
-                    M("menber")->where(array('uid' => $val))->setInc("jingbag", $result10[$key]['value'] * $resultcx['value']);
-                    $incomelog0['userid']  = $val;
-                    $incomelog0['type']    = 11;
-                    $incomelog0['state']   = 1;
-                    $incomelog0['reson']   = session('uid') . "购买产品(重消)";
-                    $incomelog0['addymd']  = date('Y-m-d', time());
-                    $incomelog0['addtime'] = time();
-                    $incomelog0['income']  = $result10[$key]['value'];
-                    M("incomelog")->add($incomelog0);
-                    unset($incomelog0);
-                    // 增加发奖记录
-                    $incomelog['userid']  = $val;
-                    $incomelog['type']    = 9;
-                    $incomelog['state']   = 1;
-                    $incomelog['reson']   = session('uid') . "购买产品";
-                    $incomelog['addymd']  = date('Y-m-d', time());
-                    $incomelog['addtime'] = time();
-                    $incomelog['income']  = $result10[$key]['value'];
-                    M("incomelog")->add($incomelog);
-                    unset($incomelog);
-                }
-            }
-            // 检查密大使升级 查看升级的团队消费额
-            $result2 = M('config')->where("id=2")->find();
-            $upnum   = $result2['value'];
-            // echo $upnum;
-
-            // 获取当前用户的团队消费额度
-            //print_r($userinfo);
-            $subQuery0   = $menber->field('uid')->where("fuids like '%," . $userinfo['uid'] . ",%'")->select(false);
-            $sumconsume0 = M('orderlog')->where("userid in(" . $subQuery0 . ")")->sum('totals');
-                 
-            //print_r($sumconsume0."|0|");
-            if ($sumconsume0 >= $upnum) {
-                // 升级密大使
-                $menber->where(array('uid' => $userinfo['uid']))->save(array('usertype' => 3, 'typeuptime' => time()));
-            }
-
-            // 1
-            $userinfo1 = $menber->where(array('uid' => $userinfo['fuid']))->find();
-            if ($userinfo1['fuid'] > 0) {
-                $subQuery1   = $menber->field('uid')->where("fuids like '%," . $userinfo1['uid'] . ",%'")->select(false);
-                $sumconsume1 = M('orderlog')->where("userid in(" . $subQuery1 . ")")->sum('totals');
-                //print_r($sumconsume1."|1|");
-                if ($sumconsume1 >= $upnum) {
-                    // 升级密大使
-                    $menber->where(array('uid' => $userinfo1['uid']))->save(array('usertype' => 3, 'typeuptime' => time()));
-                }
-                // 2
-                $userinfo2 = $menber->where(array('uid' => $userinfo1['fuid']))->find();
-                if ($userinfo2['fuid'] > 0) {
-                    $subQuery2   = $menber->field('uid')->where("fuids like '%," . $userinfo2['uid'] . ",%'")->select(false);
-                    $sumconsume2 = M('orderlog')->where("userid in(" . $subQuery2 . ")")->sum('totals');
-                    //print_r($sumconsume2."|2|");
-                    if ($sumconsume2 >= $upnum) {
-                        // 升级密大使
-                        $menber->where(array('uid' => $userinfo2['uid']))->save(array('usertype' => 3, 'typeuptime' => time()));
-                    }
-                    // 3
-                    $userinfo3 = $menber->where(array('uid' => $userinfo2['fuid']))->find();
-                    if ($userinfo3['fuid'] > 0) {
-                        $subQuery3   = $menber->field('uid')->where("fuids like '%," . $userinfo3['uid'] . ",%'")->select(false);
-                        $sumconsume3 = M('orderlog')->where("userid in(" . $subQuery3 . ")")->sum('totals');
-                        //print_r($sumconsume3."|3|");
-                        if ($sumconsume3 >= $upnum) {
-                            // 升级密大使
-                            $menber->where(array('uid' => $userinfo3['uid']))->save(array('usertype' => 3, 'typeuptime' => time()));
-                        }
-                        // 4
-                        $userinfo4 = $menber->where(array('uid' => $userinfo3['fuid']))->find();
-                        if ($userinfo4['fuid'] > 0) {
-                            $subQuery4   = $menber->field('uid')->where("fuids like '%," . $userinfo4['uid'] . ",%'")->select(false);
-                            $sumconsume4 = M('orderlog')->where("userid in(" . $subQuery4 . ")")->sum('totals');
-                            // print_r($sumconsume4."|4|");
-                            if ($sumconsume4 >= $upnum) {
-                                // 升级密大使
-                                $menber->where(array('uid' => $userinfo4['uid']))->save(array('usertype' => 3, 'typeuptime' => time()));
-                            }
-                            // 5
-                            $userinfo5 = $menber->where(array('uid' => $userinfo4['fuid']))->find();
-                            if ($userinfo5['fuid'] > 0) {
-                                $subQuery5   = $menber->field('uid')->where("fuids like '%," . $userinfo5['uid'] . ",%'")->select(false);
-                                $sumconsume5 = M('orderlog')->where("userid in(" . $subQuery5 . ")")->sum('totals');
-                                // print_r($sumconsume5."|5|");
-                                if ($sumconsume5 >= $upnum) {
-                                    // 升级密大使
-                                    $menber->where(array('uid' => $userinfo5['uid']))->save(array('usertype' => 3, 'typeuptime' => time()));
-                                }
-                                // 6
-                                $userinfo6 = $menber->where(array('uid' => $userinfo5['fuid']))->find();
-                                if ($userinfo6['fuid'] > 0) {
-                                    $subQuery6   = $menber->field('uid')->where("fuids like '%," . $userinfo6['uid'] . ",%'")->select(false);
-                                    $sumconsume6 = M('orderlog')->where("userid in(" . $subQuery6 . ")")->sum('totals');
-                                    // print_r($sumconsume6."|6|");
-                                    if ($sumconsume6 >= $upnum) {
-                                        // 升级密大使
-                                        $menber->where(array('uid' => $userinfo6['uid']))->save(array('usertype' => 3, 'typeuptime' => time()));
-                                    }
-                                    // 7
-                                    $userinfo7 = $menber->where(array('uid' => $userinfo6['fuid']))->find();
-                                    if ($userinfo7['fuid'] > 0) {
-                                        $subQuery7   = $menber->field('uid')->where("fuids like '%," . $userinfo7['uid'] . ",%'")->select(false);
-                                        $sumconsume7 = M('orderlog')->where("userid in(" . $subQuery7 . ")")->sum('totals');
-                                        // print_r($sumconsume7."|7|");
-                                        if ($sumconsume7 >= $upnum) {
-                                            // 升级密大使
-                                            $menber->where(array('uid' => $userinfo7['uid']))->save(array('usertype' => 3, 'typeuptime' => time()));
-                                        }
-                                        // 8
-                                        $userinfo8 = $menber->where(array('uid' => $userinfo7['fuid']))->find();
-                                        if ($userinfo8['fuid'] > 0) {
-                                            $subQuery8   = $menber->field('uid')->where("fuids like '%," . $userinfo8['uid'] . ",%'")->select(false);
-                                            $sumconsume8 = M('orderlog')->where("userid in(" . $subQuery8 . ")")->sum('totals');
-                                            // print_r($sumconsume8."|8|");
-                                            if ($sumconsume8 >= $upnum) {
-                                                // 升级密大使
-                                                $menber->where(array('uid' => $userinfo8['uid']))->save(array('usertype' => 3, 'typeuptime' => time()));
-                                            }
-                                            // 9
-                                            $userinfo9 = $menber->where(array('uid' => $userinfo8['fuid']))->find();
-                                            if ($userinfo9['fuid'] > 0) {
-                                                $subQuery9   = $menber->field('uid')->where("fuids like '%," . $userinfo9['uid'] . ",%'")->select(false);
-                                                $sumconsume9 = M('orderlog')->where("userid in(" . $subQuery9 . ")")->sum('totals');
-                                                // print_r($sumconsume9."|9|");
-                                                if ($sumconsume9 >= $upnum) {
-                                                    // 升级密大使
-                                                    $menber->where(array('uid' => $userinfo9['uid']))->save(array('usertype' => 3, 'typeuptime' => time()));
-                                                }
-                                                // 10
-                                                $userinfo10 = $menber->where(array('uid' => $userinfo9['fuid']))->find();
-                                                if ($userinfo10['fuid'] > 0) {
-                                                    $subQuery10   = $menber->field('uid')->where("fuids like '%," . $userinfo10['uid'] . ",%'")->select(false);
-                                                    $sumconsume10 = M('orderlog')->where("userid in(" . $subQuery10 . ")")->sum('totals');
-                                                    // print_r($sumconsume10."|10|");
-                                                    if ($sumconsume10 >= $upnum) {
-                                                        // 升级密大使
-                                                        $menber->where(array('uid' => $userinfo10['uid']))->save(array('usertype' => 3, 'typeuptime' => time()));
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+	        // }
+            //添加分销
+            $this->addDis($intro['uppro']);
 
             echo "<script>alert('购买成功');";
             echo "window.location.href='" . __ROOT__ . "/index.php/Home/Index/index';";
@@ -290,6 +120,136 @@ class IndexController extends CommonController
         $this->assign('intro', $intro);
         $this->assign('id', $_GET['id']);
         $this->display();
+    }
+
+    /**
+     * 添加分销
+     */
+    private function addDis()
+    {
+    	$menber = M("menber");
+    	$uid = session('uid');
+    	$users = M("menber")->where(array('uid' => $uid))->find();
+    	$pro = M("product")->where(array('id' => $_GET['id']))->find();
+    	$config = M('config')->getField('id,value');
+    	     
+    	
+    	// 一、二级分销,升级产品才参与二级分销
+    	if($pro['uppro'] == 1) {
+    		// 发放奖励(10级)
+	        // 获得当前用户的 推荐人
+	        // 移除自身
+	        $struids = str_replace("," . session('uid'), '', $users['fuids']);
+	        if (strlen($struids) > 0) {
+	            // 清除空数据并转换为数组
+	            $arrfuids = array_filter(explode(",", $struids));
+
+	            $arrfuids = array_reverse($arrfuids);
+
+	            //重消
+	            $resultcx = M('config')->where("id = '20'")->order('id asc')->find();
+
+	            $result10 = M('config')->where("id >= 3 and id <= 12")->order('id asc')->select();
+
+	            foreach ($arrfuids as $key => $val) {
+	            	if($val == 0) {
+	            		continue;
+	            	}
+	            	$bonus = M('member_type')->where(["id"=>$users['usertype']])->getField('bonus');
+	            	if($users['dongbag'] >= $config[23]) {
+	            		$bonus+=$config[23];
+	            	}
+	            	
+	            	$price = $pro['price'] * ($result10[$key]['value']+$bonus)/100;
+	                $menber->where(array('uid' => $val))->setInc("chargebag", $price * (1 - $resultcx['value']));
+	                $menber->where(array('uid' => $val))->setInc("jingbag", $price * $resultcx['value']);
+	                $incomelog0['userid']  = $val;
+	                $incomelog0['type']    = 11;
+	                $incomelog0['state']   = 1;
+	                $incomelog0['reson']   = session('uid') . "购买产品(重消)";
+	                $incomelog0['addymd']  = date('Y-m-d', time());
+	                $incomelog0['addtime'] = time();
+	                $incomelog0['income']  = $price;
+	                M("incomelog")->add($incomelog0);
+	                unset($incomelog0);
+	                // 增加发奖记录
+	                $incomelog['userid']  = $val;
+	                $incomelog['type']    = 9;
+	                $incomelog['state']   = 1;
+	                $incomelog['reson']   = session('uid') . "购买产品";
+	                $incomelog['addymd']  = date('Y-m-d', time());
+	                $incomelog['addtime'] = time();
+	                $incomelog['income']  = $price;
+	                M("incomelog")->add($incomelog);
+	                unset($incomelog);
+	            }
+	        }
+    	}
+    	//股东分红
+    	$gudongList = $menber->where(['dongbag'=>['gt',$config[23]]])->fetchsql(false)->getField('uid,dongbag');
+    	     
+    	foreach ($gudongList as $uid => $dongbag) {
+    		$dongbag = $dongbag - $config[23];
+    	   
+        	$price = $pro['price'] * $dongbag/100;
+        	     
+            $menber->where(array('uid' => $val))->setInc("chargebag", $price * (1 - $resultcx['value']));
+            $menber->where(array('uid' => $val))->setInc("jingbag", $price * $resultcx['value']);
+            $incomelog0['userid']  = $val;
+            $incomelog0['type']    = 11;
+            $incomelog0['state']   = 1;
+            $incomelog0['reson']   = session('uid') . "股东分红(重消)";
+            $incomelog0['addymd']  = date('Y-m-d', time());
+            $incomelog0['addtime'] = time();
+            $incomelog0['income']  = $price;
+            M("incomelog")->add($incomelog0);
+            unset($incomelog0);
+            // 增加发奖记录
+            $incomelog['userid']  = $val;
+            $incomelog['type']    = 9;
+            $incomelog['state']   = 1;
+            $incomelog['reson']   = session('uid') . "股东分红";
+            $incomelog['addymd']  = date('Y-m-d', time());
+            $incomelog['addtime'] = time();
+            $incomelog['income']  = $price;
+            M("incomelog")->add($incomelog);
+            unset($incomelog);
+        }
+    	//二、四级代理
+    	$arrfuids = array_filter(explode(",", $users['fuids']));
+    	
+    	$gudong  = $config[23] + $config[24];
+    	foreach ($arrfuids as $key => $value) {
+    		$userinfo = $menber->where(array('uid' => $value))->find();
+    		$subQuery0   = $menber->field('uid')->where("fuids like '%," . $value . ",%'")->select(false);
+	        $sumconsume0 = M('orderlog')->where("userid in(" . $subQuery0 . ")")->count();
+	        $upnum = M('member_type')->where("`order`<$sumconsume0")->order('id desc')->getField('id');
+	        //print_r($sumconsume0."|0|");
+	        if ($upnum > $userinfo['usertype']) {
+	            // 升级密大使
+	            $menber->where(array('uid' => $value))->save(array('usertype' => $upnum, 'typeuptime' => time()));
+	        }
+	        if($sumconsume0>$config[21]){
+	        	$menber->where(array('uid' => $value))->save(array('dongbag' => $config[23]));
+	        }
+	        $sumconsume1 = M('orderlog')->field('userid,count(*) as count')->where("userid in(" . $subQuery0 . ")")->group('userid')->fetchsql(false)->getField('userid,count(*)');
+	        $max = max($sumconsume1);
+	             
+	        if($sumconsume0>$config[21] && $sumconsume0 - $max>$config[22]){
+	        	$menber->where(array('uid' => $value))->save(array('dongbag' => $gudong));
+	        }
+    	}
+    	$result10 = M('config')->where("id >= 25 and id <= 34")->order('id asc')->select();
+    	//三、股东分红
+    	foreach ($arrfuids as $key => $value) {
+    		$dongbag = $menber->where(['uid'=>$value])->getField('dongbag');
+    		$otherfuids = $menber->where(['uid'=>$value])->fetchsql(true)->getField('fuids');
+    		$count = $menber->where(['dongbag'=>['gt',0], 'uid'=>['in',trim($otherfuids)]])->count();
+    		if($count > 0 && $dongbag >= $gudong) {
+    			$menber->where(array('uid' => $value))->setField('dongbag', $gudong+$result10[$count-1]['value']);
+    		}
+    	}
+
     }
 
     /**

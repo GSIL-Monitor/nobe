@@ -26,6 +26,8 @@
                 <th>职位名称</th>
                 <th>购买升级</th>
                 <th>消费升级</th>
+                <th>升级单数</th>
+                <th>代理奖金</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -46,6 +48,8 @@
               <th>{$v.typename}</th>
               <th>{$v.up_buy}</th>
               <th>{$v.up_consume}</th>
+              <th>{$v.order}</th>
+              <th>{$v.bonus}%</th>
               <th><a href="__ROOT__/index.php/Admin/Member/editusertype/id/{$v.id}">修 改 </a></th>
             </tr>
             <?php $i++ ;?>

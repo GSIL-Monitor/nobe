@@ -49,6 +49,21 @@ class ConfigController extends CommonController {
 	    $this->display();
     }
 
+    public function bonus(){
+        $Config = M('config');
+        if($_POST){
+            foreach ($_POST as $id => $value) {
+                $Config->where(array('id'=>$id))->save(array('value'=>$value));
+            }
+             
+            echo "<script>alert('修改成功');window.location.href = '".__ROOT__."/index.php/Admin/Config/bonus';</script>";
+        }
+        $result = $Config->where(['id'=>['gt',20]])->select();
+             
+        $this->assign('res',$result);
+        $this->display();
+    }
+
 }
 
 

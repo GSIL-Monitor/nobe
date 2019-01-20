@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<include file="Common/header" />
+	<div id="page-wrapper">
+		<div class="graphs">
+			<div class="xs">
+				<h3>股东分红设置</h3>
+				<div class="tab-content">
+					<div class="tab-pane active" id="horizontal-form">
+						<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+							<volist name='res' id='vo'>
+							<div class="form-group">
+								<label for="focusedinput" class="col-sm-2 control-label">{$vo.name}</label>
+								<div class="col-sm-8">
+									<input type="text" name="{$vo.id}" value="{$vo.value}" class="form-control1" id="focusedinput" placeholder="">
+								</div>
+								<div class="col-sm-2">
+									<p class="help-block"></p>
+								</div>
+							</div>
+							</volist>
+							
+
+							<div class="panel-footer">
+								<div class="row">
+									<div class="col-sm-8 col-sm-offset-2">
+										<button class="btn-success btn">Submit</button>
+									</div>
+								</div>
+							</div>
+
+
+						</form>
+					</div>
+				</div>
+
+
+
+			</div>
+			<div class="copy_layout">
+				<p>Copyright &copy; 2016 name All rights reserved.</p>
+			</div>
+		</div>
+	</div>
+	<!-- /#page-wrapper -->
+	</div>
+	<!-- /#wrapper -->
+	<!-- Nav CSS -->
+	<link href="__ROOT__/Public/admin/css/custom.css" rel="stylesheet">
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="__ROOT__/Public/admin/js/metisMenu.min.js"></script>
+	<script src="__ROOT__/Public/admin/js/custom.js"></script>
+	<script src="__ROOT__/Public/admin/js/bootstrap.min.js"></script>
+	</body>
+</html>
